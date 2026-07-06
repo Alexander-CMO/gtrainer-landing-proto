@@ -15,9 +15,21 @@ TOKENS = {
     "__M700C__": "montserrat-700-cyr.woff2",
 }
 
+PHOTOS = HERE / "photos"
+PHOTO_TOKENS = {
+    "__AVA_ELENA__": "ava-elena.jpg",
+    "__AVA_SERGEY__": "ava-sergey.jpg",
+    "__AVA_MARINA__": "ava-marina.jpg",
+    "__AVA_DMITRY__": "ava-dmitry.jpg",
+    "__AVA_IGOR__": "ava-igor.jpg",
+}
+
 html = (HERE / "template.html").read_text()
 for token, fname in TOKENS.items():
     b64 = base64.b64encode((FONTS / fname).read_bytes()).decode()
+    html = html.replace(token, b64)
+for token, fname in PHOTO_TOKENS.items():
+    b64 = base64.b64encode((PHOTOS / fname).read_bytes()).decode()
     html = html.replace(token, b64)
 
 out = HERE / "index.html"

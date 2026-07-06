@@ -209,6 +209,7 @@ h1 .accent{color:var(--indigo);}
   user-select:none;
 }
 .ava svg{width:100%;height:100%;display:block;}
+.ava img{width:100%;height:100%;object-fit:cover;display:block;}
 .pname{font-size:21px;font-weight:700;letter-spacing:-.01em;}
 .pmeta{font-size:12.5px;color:var(--ink-mute);font-weight:500;margin:3px 0 12px;}
 .pstate{
@@ -226,6 +227,12 @@ h1 .accent{color:var(--indigo);}
 }
 .talkbtn:hover{transform:translateY(-1px);box-shadow:0 8px 22px rgba(16,16,24,.28);}
 .talkbtn svg{flex:none;}
+.phone:not(.live):not(.report) .talkbtn{animation:ctaPulse 2s ease-out infinite;}
+@keyframes ctaPulse{
+  0%{box-shadow:0 0 0 0 rgba(16,16,24,.38);}
+  70%{box-shadow:0 0 0 15px rgba(16,16,24,0);}
+  100%{box-shadow:0 0 0 0 rgba(16,16,24,0);}
+}
 .voice-row{
   display:none;align-items:center;gap:8px;margin-top:12px;
   font-size:12px;font-weight:600;color:var(--ink-mute);
@@ -322,7 +329,12 @@ h1 .accent{color:var(--indigo);}
 }
 .pitch b{font-size:16.5px;font-weight:700;line-height:1.3;letter-spacing:-.01em;}
 .pitch p{font-size:12.5px;line-height:1.55;color:rgba(255,255,255,.85);margin-bottom:6px;}
-.pitch .btn{background:#fff;color:var(--indigo-deep);width:100%;padding:13px;}
+.pitch .btn{background:#fff;color:var(--indigo-deep);width:100%;padding:13px;animation:demoPulse 1.8s ease-out infinite;}
+@keyframes demoPulse{
+  0%{box-shadow:0 0 0 0 rgba(255,255,255,.6);}
+  70%{box-shadow:0 0 0 13px rgba(255,255,255,0);}
+  100%{box-shadow:0 0 0 0 rgba(255,255,255,0);}
+}
 .pitch .again{
   margin-top:2px;font-size:12.5px;font-weight:600;color:rgba(255,255,255,.9);
   text-align:center;padding:8px;text-decoration:underline;text-underline-offset:3px;
@@ -672,8 +684,8 @@ footer{background:var(--ink);color:rgba(255,255,255,.6);padding:0 0 36px;}
 <section id="how">
   <div class="wrap">
     <div class="sec-head">
-      <h2>Тренируйтесь как спортсмены: на спаррингах</h2>
-      <p>Чемпионы не выходят на ринг без спарринг-партнёра. G-trainer даёт вашей команде столько спаррингов, сколько нужно до уверенного результата.</p>
+      <h2>Как проходит тренировка</h2>
+      <p>Четыре шага от первого разговора до уверенного навыка. Никаких лекций и тестов: только живая речевая практика и разбор.</p>
     </div>
     <div class="steps">
       <div class="step">
@@ -721,7 +733,7 @@ footer{background:var(--ink);color:rgba(255,255,255,.6);padding:0 0 36px;}
       <div class="cust">
         <svg width="30" height="30" viewBox="0 0 30 30" fill="none"><path d="M5 25V15M12.5 25V9M20 25v-8M27 25V5" stroke="#8c8afd" stroke-width="1.8" stroke-linecap="round"/></svg>
         <b>Смотрите динамику</b>
-        <p>Прогресс каждого сотрудника и всей команды на одном экране: кто уже готов к бою, а кому нужно ещё несколько спаррингов.</p>
+        <p>Прогресс каждого сотрудника и всей команды на одном экране: кто уже готов к реальным клиентам, а кому нужна ещё практика.</p>
       </div>
     </div>
   </div>
@@ -984,6 +996,7 @@ function avatarSVG(hue1,hue2,initial){
 
 const PERSONAS=[
  {chip:'Клиника',name:'Елена',initial:'Е',c1:'#e8b3a6',c2:'#b96a5c',pitchRate:1.05,pitchTone:1.25,
+  photo:'data:image/jpeg;base64,__AVA_ELENA__',
   meta:'34 года · Тревожный пациент',
   goal:'Установите контакт и выявите потребность',
   hints:['Задавайте открытые вопросы о причине визита','Дайте выговориться, не перебивайте','Резюмируйте запрос перед предложением'],
@@ -999,6 +1012,7 @@ const PERSONAS=[
   fb:'<b>Сильный ход: резюме страха пациентки перед ответом и конкретный следующий шаг с датой.</b> Зона роста: при возражении «остаться с живыми зубами» дайте цифру или пример, абстрактное «минимальная обработка» тревогу снимает не до конца.'},
 
  {chip:'Отдел продаж',name:'Сергей',initial:'С',c1:'#9fb4d8',c2:'#54749f',pitchRate:1,pitchTone:0.85,
+  photo:'data:image/jpeg;base64,__AVA_SERGEY__',
   meta:'41 год · Сомневающийся клиент',
   goal:'Отработайте возражение «дорого»',
   hints:['Уточните, с чем сравнивает клиент','Переведите цену в ценность и цифры','Зафиксируйте следующий шаг с датой'],
@@ -1014,6 +1028,7 @@ const PERSONAS=[
   fb:'<b>Возражение «дорого» вы перевели в расчёт ценности и закрыли конкретной датой - рабочая связка.</b> Зона роста: перед расчётом уточните, с кем именно сравнивает клиент, иначе считаете против невидимого конкурента.'},
 
  {chip:'Колл-центр',name:'Марина',initial:'М',c1:'#d8a7c7',c2:'#96517f',pitchRate:1.12,pitchTone:1.3,
+  photo:'data:image/jpeg;base64,__AVA_MARINA__',
   meta:'29 лет · Раздражённый абонент',
   goal:'Погасите негатив и решите вопрос',
   hints:['Признайте эмоцию до разбора ситуации','Не переключайте: доведите вопрос сами','Проговорите срок и способ решения'],
@@ -1029,6 +1044,7 @@ const PERSONAS=[
   fb:'<b>Отлично удержали клиента без перевода на коллег и закрыли звонок проверкой «остались ли вопросы».</b> Зона роста: назовите точное время возврата вместо «в течение суток», это снимает повторный звонок.'},
 
  {chip:'HR',name:'Дмитрий',initial:'Д',c1:'#a9c9b4',c2:'#557f66',pitchRate:0.98,pitchTone:0.9,
+  photo:'data:image/jpeg;base64,__AVA_DMITRY__',
   meta:'32 года · Демотивированный сотрудник',
   goal:'Верните мотивацию через разговор 1:1',
   hints:['Спросите, когда появилось это ощущение','Признайте свою часть ответственности','Переведите эмоции в план действий'],
@@ -1044,6 +1060,7 @@ const PERSONAS=[
   fb:'<b>Признание ошибки сработало: сотрудник раскрылся, а договорённости получили конкретные даты.</b> Зона роста: спросите, чего хочет сам Дмитрий, прежде чем предлагать свой план, иначе мотивация снова станет вашей задачей, а не его.'},
 
  {chip:'Консалтинг',name:'Игорь Петрович',initial:'И',c1:'#c9bfa9',c2:'#84744f',pitchRate:0.92,pitchTone:0.7,
+  photo:'data:image/jpeg;base64,__AVA_IGOR__',
   meta:'52 года · Скептичный директор',
   goal:'Пройдите скепсис и договоритесь о пилоте',
   hints:['Не спорьте со скепсисом: опирайтесь на факты','Сначала вопросы о задачах, потом метод','Предложите шаг с низким риском для клиента'],
@@ -1107,7 +1124,7 @@ function selectPersona(i){
   cur=i;stopSession();shutUp();
   [...chipsBox.children].forEach((c,j)=>c.classList.toggle('on',j===i));
   const p=PERSONAS[i];
-  $('ava').innerHTML=avatarSVG(p.c1,p.c2,p.initial);
+  $('ava').innerHTML=p.photo&&!p.photo.includes('__')?`<img src="${p.photo}" alt="${p.name}">`:avatarSVG(p.c1,p.c2,p.initial);
   $('pname').textContent=p.name;
   $('pmeta').textContent=p.meta;
   $('goalTitle').textContent=p.goal;
